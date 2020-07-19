@@ -6,10 +6,12 @@ React.js, Angular.js and Vue.js. This NPM package can be used for a seamless Pay
 
 ## Features
 
+- Works in front end JS frameworksand in React Native WebView
 - Making one time payments with Checkout API
 - Making Recurrent payments with Recurring API (monthly, daily. annually)
 - Get payments data of your Payhere account using Retrieval API
-- Scheduling future payments at a predefined time using Preapproval API and Charging API
+- Linking customers payment info with your app for making future payments at any time without customer intervention
+- subscriptions management (Find, retry and cancel subscriptions)
 
 ## Installation
 
@@ -39,6 +41,14 @@ const payhere = new Payhere(merchantId,'SANDBOX')
 
 // Live
 const payhere = new Payhere(merchantId,'LIVE')
+```
+
+Payhere payment manager API requires an authorization code to function. Therefore, if you plan to use Payhere Payment Manager as well,remember to initialize the Payhere object as follows. To understand how to generate the authorization code, please have a look at [the official docs](https://support.payhere.lk/api-&-mobile-sdk/payhere-subscription#2-generate-an-authorization-code).
+
+```
+// Replace this sample value with your authorization code
+const authCode = "NE9WeDMzUlZPUGc0RHpkWlV6cTRBOTREMjo4bjRWQ2oyNU1YcDRKTERGeXZzRTloNGE4cWdiUGFaVUk0SkVXSzRGQ3ZvcA==" 
+const payhere = new Payhere(merchantId,'SANDBOX',authCode)
 ```
 
 #### Checkout
