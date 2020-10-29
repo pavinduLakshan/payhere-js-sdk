@@ -1,5 +1,5 @@
 {
-  "name": "payhere-js",
+  "name": "payhere-js-sdk",
   "version": "1.0.0",
   "description": "Full Fledged Payhere.lk JavaScript SDK",
   "main": "lib/index.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pavinduLakshan/payhere-js.git"
+    "url": "git+https://github.com/pavinduLakshan/payhere-js-sdk.git"
   },
   "keywords": [
     "payhere.lk",
@@ -26,12 +26,12 @@
   "author": "Pavindu Lakshan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pavinduLakshan/payhere-js/issues"
+    "url": "https://github.com/pavinduLakshan/payhere-js-sdk/issues"
   },
   "files": [
     "lib/**/*"
   ],
-  "homepage": "https://github.com/pavinduLakshan/payhere-js#readme",
+  "homepage": "https://github.com/pavinduLakshan/payhere-js-sdk#readme",
   "devDependencies": {
     "@types/jest": "^26.0.4",
     "jest": "^26.1.0",
