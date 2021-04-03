@@ -1,47 +1,63 @@
 import { Payhere } from './Payhere';
 import { CheckoutObjType } from './interfaces/checkoutObj';
 
+const requiredCheckoutParams: { [key: string]: string } = {
+  "return_url" : 'returnUrl',
+  "cancel_url": 'cancelUrl',
+  "notify_url": 'notifyUrl',
+  "first_name": 'firstName',
+  "last_name": 'lastName',
+  "email": 'email',
+  "phone": 'phone',
+  "address": 'address',
+  "city": 'city',
+  "country": 'country',
+  "order_id": 'orderId',
+  "items": 'itemTitle',
+  "currency": 'currency',
+  "amount": 'amount',
+};
 export class PayhereCheckout extends Payhere {
   private checkoutObj: any = {};
 
   constructor(checkoutObj: CheckoutObjType) {
     super();
     try {
-      const items = checkoutObj.items ? checkoutObj.items.map((item,index) => (
-        {
-          [`item_name_${index}`]: item.name,
-          [`item_number_${index}`]: item.modelNo,
-          [`amount_${index}`]: item.amount,
-          [`quantity_${index}`]: item.quantity
-        }
-      )) : []
-      
+      const items = checkoutObj.items
+        ? checkoutObj.items.map((item, index) => ({
+            [`item_name_${index}`]: item.name,
+            [`item_number_${index}`]: item.modelNo,
+            [`amount_${index}`]: item.amount,
+            [`quantity_${index}`]: item.quantity,
+          }))
+        : [];
+
       const checkoutData = {
-        "return_url": checkoutObj.returnUrl,
-        "cancel_url": checkoutObj.cancelUrl,
-        "notify_url": checkoutObj.notifyUrl,
-        "first_name": checkoutObj.firstName,
-        "last_name": checkoutObj.lastName,
-        "email": checkoutObj.email,
-        "phone": checkoutObj.phone,
-        "address": checkoutObj.address,
-        "city": checkoutObj.city,
-        "country": checkoutObj.country,
-        "order_id": checkoutObj.order_id,
-        "items": checkoutObj.itemTitle,
-        "currency": checkoutObj.currency,
-        "amount": checkoutObj.amount,
-        
-        "delivery_address": checkoutObj.deliveryAddress,
-        "delivery_city": checkoutObj.deliveryCity,
-        "delivery_country": checkoutObj.deliveryCountry,
+        return_url: checkoutObj.returnUrl,
+        cancel_url: checkoutObj.cancelUrl,
+        notify_url: checkoutObj.notifyUrl,
+        first_name: checkoutObj.firstName,
+        last_name: checkoutObj.lastName,
+        email: checkoutObj.email,
+        phone: checkoutObj.phone,
+        address: checkoutObj.address,
+        city: checkoutObj.city,
+        country: checkoutObj.country,
+        order_id: checkoutObj.order_id,
+        items: checkoutObj.itemTitle,
+        currency: checkoutObj.currency,
+        amount: checkoutObj.amount,
+
+        delivery_address: checkoutObj.deliveryAddress,
+        delivery_city: checkoutObj.deliveryCity,
+        delivery_country: checkoutObj.deliveryCountry,
         ...items,
-        "platform": checkoutObj.platform,
-        "custom_1": checkoutObj.custom1,
-        "custom_2": checkoutObj.custom2,
-        "hash": checkoutObj.hash
-      }
-      
+        platform: checkoutObj.platform,
+        custom_1: checkoutObj.custom1,
+        custom_2: checkoutObj.custom2,
+        hash: checkoutObj.hash,
+      };
+
       this.checkoutObj = checkoutData;
     } catch (err) {
       throw new Error(err);
@@ -49,26 +65,42 @@ export class PayhereCheckout extends Payhere {
   }
 
   async start() {
-    if (!Payhere.getMerchantId()) throw new Error('Payhere is not initialized');
-    const paymentReq = {
-      "merchant_id": Payhere.getMerchantId(),
-      ...this.checkoutObj,
-    };
-
-    const form = window.document.createElement("form")
-    form.setAttribute('action',Payhere.getAccountType().baseUrl+"/pay/checkout")
-    form.style.display = "none"
-    form.setAttribute('method','post')
-    for(const name of Object.keys(paymentReq)){
-      if(paymentReq[name]){
-        const inpt = window.document.createElement('input')
-        inpt.setAttribute('name',name)
-        inpt.setAttribute('type','hidden')
-        inpt.setAttribute('value',paymentReq[name])
-        form.appendChild(inpt)
+      if (!Payhere.getMerchantId()) {
+        console.error('Payhere Error: Payhere is not initialized');
+        return;
       }
-    }
-    window.document.body.appendChild(form)
-    form.submit()
+
+      try{
+        const paymentReq = {
+          merchant_id: Payhere.getMerchantId(),
+          ...this.checkoutObj,
+        };
+  
+        const form = window.document.createElement('form');
+        form.setAttribute('action', Payhere.getBaseUrl() + '/pay/checkout');
+        form.style.display = 'none';
+        form.setAttribute('method', 'post');
+  
+        for (const name of Object.keys(paymentReq)) {
+          if (paymentReq[name]) {
+            const inpt = window.document.createElement('input');
+            inpt.setAttribute('name', name);
+            inpt.setAttribute('type', 'hidden');
+            inpt.setAttribute('value', paymentReq[name]);
+            form.appendChild(inpt);
+          } else {
+            if (Object.keys(requiredCheckoutParams).includes(name)) {
+              console.error(`Payhere Error: ${requiredCheckoutParams[name]} is a required parameter`)
+              return;
+            }
+          }
+        }
+  
+        window.document.body.appendChild(form);
+        form.submit();
+      }
+      catch(err){
+        console.error(err)
+      }
   }
 }
