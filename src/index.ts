@@ -1,6 +1,5 @@
-import { Payhere } from './Payhere';
+import { Payhere, AccountCategory } from './Payhere';
 import { PayhereCheckout } from './PayhereCheckout';
-import { AccountType } from './utils/AccountType';
 import { CurrencyType } from './utils/CurrencyType';
 
-export { Payhere, PayhereCheckout, AccountType, CurrencyType };
+export { Payhere, AccountCategory, PayhereCheckout, CurrencyType };

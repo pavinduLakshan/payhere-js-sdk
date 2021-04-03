@@ -1,15 +1,21 @@
-import { AccountType } from './utils/AccountType';
-
+export enum AccountCategory {
+  LIVE,
+  SANDBOX,
+}
 export class Payhere {
   private static merchantId: string;
-  private static accountType: AccountType;
+  private static baseUrl: string;
   private static accessCode: string = '';
   private static authToken: string = '';
 
-  static init(merchantId: string, accountType: string, authToken?: string) {
-    Payhere.merchantId = merchantId;
-    if (accountType === 'LIVE') Payhere.accountType = new AccountType('LIVE');
-    else if (accountType === 'SANDBOX') Payhere.accountType = new AccountType('SANDBOX');
+  static init(merchantId: string, accountType: AccountCategory, authToken?: string) {
+    this.merchantId = merchantId;
+    if (accountType === AccountCategory.LIVE) {
+      this.baseUrl = 'https://www.payhere.lk';
+    }
+    else if (accountType === AccountCategory.SANDBOX) {
+      this.baseUrl = 'https://sandbox.payhere.lk';
+    }
     else throw new Error('Account type is reqquired, but has not been provided. Should be either LIVE or SANDBOX');
     if (authToken) {
       Payhere.authToken = authToken;
@@ -18,19 +24,19 @@ export class Payhere {
   }
 
   static getMerchantId() {
-    return Payhere.merchantId;
-  }
-
-  static getAccountType() {
-    return Payhere.accountType;
+    return this.merchantId;
   }
 
   static getAccessCode() {
-    return Payhere.accessCode;
+    return this.accessCode;
   }
 
   static getAuthToken() {
-    return Payhere.authToken;
+    return this.authToken;
+  }
+
+  static getBaseUrl() {
+    return this.baseUrl
   }
 
   private static genAccessCode(authToken: string): string {
