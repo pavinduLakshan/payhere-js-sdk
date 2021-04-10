@@ -19,8 +19,9 @@ const requiredCheckoutParams: { [key: string]: string } = {
 };
 export class PayhereCheckout extends Payhere {
   private checkoutObj: any = {};
+  private onCheckoutError: (errorMsg: string) => void;
 
-  constructor(checkoutObj: CheckoutObjType) {
+  constructor(checkoutObj: CheckoutObjType, onError: (errorMsg: string) => void ) {
     super();
     try {
       const items = checkoutObj.items
@@ -32,7 +33,7 @@ export class PayhereCheckout extends Payhere {
           }))
         : [];
 
-      const checkoutData = {
+        this.checkoutObj = {
         return_url: checkoutObj.returnUrl,
         cancel_url: checkoutObj.cancelUrl,
         notify_url: checkoutObj.notifyUrl,
@@ -57,8 +58,7 @@ export class PayhereCheckout extends Payhere {
         custom_2: checkoutObj.custom2,
         hash: checkoutObj.hash,
       };
-
-      this.checkoutObj = checkoutData;
+      this.onCheckoutError = onError;
     } catch (err) {
       throw new Error(err);
     }
@@ -67,6 +67,7 @@ export class PayhereCheckout extends Payhere {
   async start() {
       if (!Payhere.getMerchantId()) {
         console.error('Payhere Error: Payhere is not initialized');
+        this.onCheckoutError("Payhere is not initialized")
         return;
       }
 
@@ -91,6 +92,7 @@ export class PayhereCheckout extends Payhere {
           } else {
             if (Object.keys(requiredCheckoutParams).includes(name)) {
               console.error(`Payhere Error: ${requiredCheckoutParams[name]} is a required parameter`)
+              this.onCheckoutError(`Payhere Error: ${requiredCheckoutParams[name]} is a required parameter`);
               return;
             }
           }
@@ -101,6 +103,7 @@ export class PayhereCheckout extends Payhere {
       }
       catch(err){
         console.error(err)
+        this.onCheckoutError('Unknown error: '+err)
       }
   }
 }

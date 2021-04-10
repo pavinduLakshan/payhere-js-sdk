@@ -28,16 +28,16 @@ yarn add payhere-js-sdk
 
 ### Initialization
 
-First initialize Payhere by specifying the merchant ID and the account type.
+First initialize Payhere in the entry point of your Single Page App, by specifying the merchant ID and the account type as follows.
 
 ```
-const merchantId = "12xxxxx"
+import {Payhere, AccountCategory} from "payhere-js-sdk"
 
 // Sandbox 
-Payhere.init(merchantId,'SANDBOX')
+Payhere.init("12xxxxx",AccountCategory.SANDBOX)
 
 // Live
-Payhere.init(merchantId,'LIVE')
+Payhere.init("12xxxxx",AccountCategory.LIVE)
 ```
 
 If you plan to use the Retrieval API, Charging API or Subscription Manager API,remember to initialize the Payhere object with an authorization code as follows. 
@@ -45,7 +45,7 @@ If you plan to use the Retrieval API, Charging API or Subscription Manager API,r
 ```
 // Replace this sample value with your authorization code
 const authCode = "NE9WeDMzUlZPUGc0RHpkWlV6cTRBOTREMjo4bjRWQ2oyNU1YcDRKTERGeXZzRTloNGE4cWdiUGFaVUk0SkVXSzRGQ3ZvcA==" 
-Payhere.init(merchantId,'SANDBOX',authCode)
+Payhere.init("12xxxxx",AccountCategory.SANDBOX,authCode)
 ```
 
 To understand how to generate the authorization code, please refer to [the official docs](https://support.payhere.lk/api-&-mobile-sdk/payhere-subscription#2-generate-an-authorization-code).
@@ -53,6 +53,8 @@ To understand how to generate the authorization code, please refer to [the offic
 ### Checkout
 
 ``` 
+import {PayhereCheckout} from "payhere"
+
 const checkoutObj = {
   returnUrl: 'http://localhost:3000/return',
   cancelUrl: 'http://localhost:3000/cancel',
@@ -70,25 +72,12 @@ const checkoutObj = {
   amount: 100
 }
 
-const checkout = new PayhereCheckout(checkoutObj)
-
-// using promises
-checkout.start().then(res => {
-  // successful checkout
-  console.log(res)
-}).catch(err => {
-  // error occured
-  console.log(err)
-})
-
-// using async await
-try {
-  const response = await checkout.start(checkOutObj)
-  console.log(response)
+function onPayhereCheckoutErr(errorMsg){
+  alert(errorMsg)
 }
-catch(err){
-  cosole.log(err)
-}
+
+const checkout = new PayhereCheckout(checkoutObj,onPayhereCheckoutErr)
+checkout.start()
 ```
 
 #### Subscription
