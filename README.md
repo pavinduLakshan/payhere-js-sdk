@@ -1,7 +1,7 @@
 # payhere-js-sdk
 Full Fledged JavaScript SDK for payhere.lk 
 
-Payhere is one of the most popular payment gateways in Sri Lanka. Yet there is still no comfortable way to integrate Payhere with modern front end JS frameworks such as 
+Payhere is one of the most popular payment gateways in Sri Lanka, yet there is still no comfortable way to integrate Payhere with modern front end JS frameworks such as 
 React.js, Angular.js, and Vue.js. This NPM package can be used for a seamless Payhere integration with your single page web app.
 
 ## Features
@@ -83,21 +83,28 @@ checkout.start()
 #### Subscription
 
 ``` 
-const subscriptionObj = {}
-
-// using promises
-payhere.initSubscription(subscriptionObj).then(res => {
-  // subscription started successfully
-  console.log(res)
-}).catch(err => {
-  // error when initializing subscrption
-  console.log(err)
-})
-
-// using async await
 try {
-  const response = await payhere.initSubscription(subscriptionObj)
-  console.log(response)
+  const subscriptionObj = {
+    returnUrl: 'http://localhost:3000/return',
+    cancelUrl: 'http://localhost:3000/cancel',
+    notifyUrl: 'http://localhost:8080/notify',
+    firstName: 'Demo',
+    lastName: 'Customer',
+    email: 'plumberhl@gmail.com',
+    phone: '+94771234567',
+    address: 'No. 50, Highlevel Road',
+    city: 'Panadura',
+    country: 'Sri Lanka',
+    order_id: '112233',
+    itemTitle: 'Demo Item',
+    recurrence: new Month(1), // charged monthly
+    duration: new Month(12), // for 12 months
+    currency: CurrencyType.LKR,
+    amount: 100
+  }
+          
+  const subscription = new PayhereSubscription(subscriptionObj,onPayhereSubscriptionError)
+  subscription.start()
 }
 catch(err){
   cosole.log(err)
@@ -107,21 +114,25 @@ catch(err){
 #### Preapproval
 
 ```
-const preApprovalObj = {}
-
-// using promises
-payhere.initPreApproval(preApprovalObj).then(res => {
-  // subscription started successfully
-  console.log(res)
-}).catch(err => {
-  // error when initializing subscrption
-  console.log(err)
-})
-
-// using async await
 try {
-  const response = await payhere.initPreApproval(preApprovalObj)
-  console.log(response)
+  const preappObj = {
+    returnUrl: 'http://localhost:3000/return',
+    cancelUrl: 'http://localhost:3000/cancel',
+    notifyUrl: 'https://dfc84fd10430.ngrok.io/preapprove-notify',
+    firstName: 'Demo',
+    lastName: 'Customer',
+    email: 'plumberhl@gmail.com',
+    phone: '+94771234567',
+    address: 'No. 50, Highlevel Road',
+    city: 'Panadura',
+    country: 'Sri Lanka',
+    order_id: '112233',
+    itemTitle: 'Demo Item',
+    currency: CurrencyType.LKR
+  };
+
+  const preapp = new PayherePreapproval(preappObj,(err) => alert(err))
+  preapp.start()
 }
 catch(err){
   cosole.log(err)
@@ -130,27 +141,7 @@ catch(err){
 
 #### Charge Pre approvals
 
-```
-const chargeObj = {}
-
-// using promises
-payhere.charge(chargeObj).then(res => {
-  // charged successfully
-  console.log(res)
-}).catch(err => {
-  // error when charging
-  console.log(err)
-})
-
-// using async await
-try {
-  const response = await payhere.charge(chargeObj)
-  console.log(response)
-}
-catch(err){
-  cosole.log(err)
-}
-```
+Coming soon
 
 ### Payhere payment manager
 
@@ -158,79 +149,28 @@ Payhere payment manager contains functions to manage checkout operations and sub
 
 #### Initialization
 
-```
-import {PayhereManager} from 'payhere-js-sdk'
-const merchantId = "12xxxx"
-
-// Sandbox 
-const payhereManager = new PayhereManager(merchantId,'SANDBOX')
-
-// Live
-const payhereManager = new PayhereManager(merchantId,'LIVE')
-```
+Coming soon
 
 #### Retrieve access token
 
-```
-const accessToken = payhereManager.auth(appId, appSecret)
-```
+Coming soon
 
 #### Get payment information of a checkout
 
-```
-payhereManager.findCheckoutById(subscriptionId).then(res => {
-  // payment information
-  console.log(res)
-}).catch(err => {
-  // error occured
-  console.log(err)
-})
-```
+Coming soon
 
 #### Get all subscriptions
 
-```
-payhereManager.findAllSubscriptions().then(res => {
-  // all subscriptions
-  console.log(res)
-}).catch(err => {
-  // error occured
-  console.log(err)
-})
-```
+Coming soon
 
 #### View payments of a subscription
 
-```
-payhereManager.findSubscriptionById(subscriptionId).then(res => {
-  // payment information
-  console.log(res)
-}).catch(err => {
-  // error occured
-  console.log(err)
-})
-```
+Coming soon
 
 #### Retry a subscription
 
-```
-payhereManager.retrySubscription(subscriptionId).then(res => {
-  // retry attempt successful
-  console.log(res)
-}).catch(err => {
-  // error occured
-  console.log(err)
-})
-```
+Coming soon
 
 #### Cancel a subscription
 
-```
-payhereManager.cancelSubscription(subscriptionId).then(res => {
-  // subscription successful
-  console.log(res)
-}).catch(err => {
-  // error occured
-  console.log(err)
-})
-```
+Coming soon
