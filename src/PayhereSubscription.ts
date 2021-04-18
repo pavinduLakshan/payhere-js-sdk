@@ -2,28 +2,28 @@ import { Payhere } from './Payhere';
 import { SubscriptionObjType } from './interfaces/subscriptionObj';
 
 const requiredSubscriptionParams: { [key: string]: string } = {
-  "return_url" : 'returnUrl',
-  "cancel_url": 'cancelUrl',
-  "notify_url": 'notifyUrl',
-  "first_name": 'firstName',
-  "last_name": 'lastName',
-  "email": 'email',
-  "phone": 'phone',
-  "address": 'address',
-  "city": 'city',
-  "country": 'country',
-  "order_id": 'orderId',
-  "items": 'itemTitle',
-  "currency": 'currency',
-  "recurrence": 'recurrence',
-  "duration": 'duration',
-  "amount": 'amount',
+  return_url: 'returnUrl',
+  cancel_url: 'cancelUrl',
+  notify_url: 'notifyUrl',
+  first_name: 'firstName',
+  last_name: 'lastName',
+  email: 'email',
+  phone: 'phone',
+  address: 'address',
+  city: 'city',
+  country: 'country',
+  order_id: 'orderId',
+  items: 'itemTitle',
+  currency: 'currency',
+  recurrence: 'recurrence',
+  duration: 'duration',
+  amount: 'amount',
 };
 export class PayhereSubscription extends Payhere {
   private subscriptionObj: any = {};
-  private onSubscriptionError: (errorMsg: string) => void;
+  private onSubscriptionError: (errorMsg: string) => void = (errorMsg) => console.log(errorMsg);
 
-  constructor(subscriptionObj: SubscriptionObjType, onError: (errorMsg: string) => void ) {
+  constructor(subscriptionObj: SubscriptionObjType, onError: (errorMsg: string) => void) {
     super();
     try {
       const items = subscriptionObj.items
@@ -34,8 +34,8 @@ export class PayhereSubscription extends Payhere {
             [`quantity_${index}`]: item.quantity,
           }))
         : [];
-console.log(subscriptionObj.recurrence.toString())
-        this.subscriptionObj = {
+
+      this.subscriptionObj = {
         return_url: subscriptionObj.returnUrl,
         cancel_url: subscriptionObj.cancelUrl,
         notify_url: subscriptionObj.notifyUrl,
@@ -70,45 +70,44 @@ console.log(subscriptionObj.recurrence.toString())
   }
 
   async start() {
-      if (!Payhere.getMerchantId()) {
-        console.error('Payhere Error: Payhere is not initialized');
-        this.onSubscriptionError("Payhere is not initialized")
-        return;
-      }
+    if (!Payhere.getMerchantId()) {
+      console.error('Payhere Error: Payhere is not initialized');
+      this.onSubscriptionError('Payhere is not initialized');
+      return;
+    }
 
-      try{
-        const paymentReq = {
-          merchant_id: Payhere.getMerchantId(),
-          ...this.subscriptionObj,
-        };
-  
-        const form = window.document.createElement('form');
-        form.setAttribute('action', Payhere.getBaseUrl() + '/pay/checkout');
-        form.style.display = 'none';
-        form.setAttribute('method', 'post');
-  
-        for (const name of Object.keys(paymentReq)) {
-          if (paymentReq[name]) {
-            const inpt = window.document.createElement('input');
-            inpt.setAttribute('name', name);
-            inpt.setAttribute('type', 'hidden');
-            inpt.setAttribute('value', paymentReq[name]);
-            form.appendChild(inpt);
-          } else {
-            if (Object.keys(requiredSubscriptionParams).includes(name)) {
-              console.error(`Payhere Error: ${requiredSubscriptionParams[name]} is a required parameter`)
-              this.onSubscriptionError(`Payhere Error: ${requiredSubscriptionParams[name]} is a required parameter`);
-              return;
-            }
+    try {
+      const paymentReq = {
+        merchant_id: Payhere.getMerchantId(),
+        ...this.subscriptionObj,
+      };
+
+      const form = window.document.createElement('form');
+      form.setAttribute('action', Payhere.getBaseUrl() + '/pay/checkout');
+      form.style.display = 'none';
+      form.setAttribute('method', 'post');
+
+      for (const name of Object.keys(paymentReq)) {
+        if (paymentReq[name]) {
+          const inpt = window.document.createElement('input');
+          inpt.setAttribute('name', name);
+          inpt.setAttribute('type', 'hidden');
+          inpt.setAttribute('value', paymentReq[name]);
+          form.appendChild(inpt);
+        } else {
+          if (Object.keys(requiredSubscriptionParams).includes(name)) {
+            console.error(`Payhere Error: ${requiredSubscriptionParams[name]} is a required parameter`);
+            this.onSubscriptionError(`Payhere Error: ${requiredSubscriptionParams[name]} is a required parameter`);
+            return;
           }
         }
-  
-        window.document.body.appendChild(form);
-        form.submit();
       }
-      catch(err){
-        console.error(err)
-        this.onSubscriptionError('Unknown error: '+err)
-      }
+
+      window.document.body.appendChild(form);
+      form.submit();
+    } catch (err) {
+      console.error(err);
+      this.onSubscriptionError('Unknown error: ' + err);
+    }
   }
 }
