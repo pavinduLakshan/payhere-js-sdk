@@ -1,30 +1,33 @@
 import React from 'react';
-import {PayhereSubscription,Month,CurrencyType} from 'payhere-js-sdk'
+import {PayhereSubscription,SubscriptionParams, Customer, Month,CurrencyType} from 'payhere-js-sdk'
 
 const Subscription = () => {
-    async function initSubscription() {
-        // using async await
-        try {
-          const subscriptionObj = {
+    function initSubscription() {
+      try {
+        const customer = new Customer({
+          first_name: "Pavindu",
+          last_name: "Lakshan",
+          phone: "+94771234567",
+          email: "plumberhl@gmail.com",
+          address: "No. 50, Highlevel Road",
+          city: "Panadura",
+          country: "Sri Lanka",
+        })
+
+        const subscriptionData = new SubscriptionParams({
             returnUrl: 'http://localhost:3000/return',
             cancelUrl: 'http://localhost:3000/cancel',
             notifyUrl: 'http://localhost:8080/notify',
-            firstName: 'Demo',
-            lastName: 'Customer',
-            email: 'plumberhl@gmail.com',
-            phone: '+94771234567',
-            address: 'No. 50, Highlevel Road',
-            city: 'Panadura',
-            country: 'Sri Lanka',
-            order_id: '112233',
+            order_id: '112234',
             itemTitle: 'Demo Item',
-            recurrence: new Month(-1),
+            recurrence: new Month(1),
             duration: new Month(12),
             currency: CurrencyType.LKR,
             amount: 100
           }
+        )
           
-          const subscription = new PayhereSubscription(subscriptionObj,onPayhereSubscriptionError)
+          const subscription = new PayhereSubscription(customer,subscriptionData,onPayhereSubscriptionError)
           subscription.start()
       }
       catch(err){
