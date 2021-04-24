@@ -53,89 +53,106 @@ To understand how to generate the authorization code, please refer to [the offic
 ### Checkout
 
 ``` 
-import {PayhereCheckout} from "payhere"
+import {Customer, CurrencyType, PayhereCheckout, CheckoutParams} from 'payhere-js-sdk'
 
-const checkoutObj = {
-  returnUrl: 'http://localhost:3000/return',
-  cancelUrl: 'http://localhost:3000/cancel',
-  notifyUrl: 'http://localhost:8080/notify',
-  firstName: 'Demo',
-  lastName: 'Customer',
-  email: 'customer@example.com',
-  phone: '+94771234567',
-  address: 'No. 50, Highlevel Road',
-  city: 'Panadura',
-  country: 'Sri Lanka',
-  order_id: '112233',
-  itemTitle: 'Demo Item',
-  currency: 'LKR',
-  amount: 100
-}
-
-function onPayhereCheckoutErr(errorMsg){
+function onPayhereCheckoutError(errorMsg) {
   alert(errorMsg)
 }
+  
+function checkout() {
+  const customer = new Customer({
+    first_name: "Pavindu",
+    last_name: "Lakshan",
+    phone: "+94771234567",
+    email: "plumberhl@gmail.com",
+    address: "No. 50, Highlevel Road",
+    city: "Panadura",
+    country: "Sri Lanka",
+  })
 
-const checkout = new PayhereCheckout(checkoutObj,onPayhereCheckoutErr)
-checkout.start()
+  const checkoutData = new CheckoutParams({
+    returnUrl: 'http://localhost:3000/return',
+    cancelUrl: 'http://localhost:3000/cancel',
+    notifyUrl: 'http://localhost:8080/notify',
+    order_id: '112233',
+    itemTitle: 'Demo Item',
+    currency: CurrencyType.LKR,
+    amount: 100
+  })
+
+  const checkout = new PayhereCheckout(customer,checkoutData,onPayhereCheckoutError)
+  checkout.start()
+}
 ```
 
 #### Subscription
 
-``` 
-try {
-  const subscriptionObj = {
-    returnUrl: 'http://localhost:3000/return',
-    cancelUrl: 'http://localhost:3000/cancel',
-    notifyUrl: 'http://localhost:8080/notify',
-    firstName: 'Demo',
-    lastName: 'Customer',
-    email: 'plumberhl@gmail.com',
-    phone: '+94771234567',
-    address: 'No. 50, Highlevel Road',
-    city: 'Panadura',
-    country: 'Sri Lanka',
-    order_id: '112233',
-    itemTitle: 'Demo Item',
-    recurrence: new Month(1), // charged monthly
-    duration: new Month(12), // for 12 months
-    currency: CurrencyType.LKR,
-    amount: 100
-  }
-          
-  const subscription = new PayhereSubscription(subscriptionObj,onPayhereSubscriptionError)
-  subscription.start()
+```
+import {PayhereSubscription,SubscriptionParams, Customer, Month,CurrencyType} from 'payhere-js-sdk'
+
+function onPayhereSubscriptionError(errorMsg) {
+  alert(errorMsg)
 }
-catch(err){
-  cosole.log(err)
+
+function initSubscription() {
+  try {
+    const customer = new Customer({
+      first_name: "Pavindu",
+      last_name: "Lakshan",
+      phone: "+94771234567",
+      email: "plumberhl@gmail.com",
+      address: "No. 50, Highlevel Road",
+      city: "Panadura",
+      country: "Sri Lanka",
+    })
+
+    const subscriptionData = new SubscriptionParams({
+      returnUrl: 'http://localhost:3000/return',
+      cancelUrl: 'http://localhost:3000/cancel',
+      notifyUrl: 'http://localhost:8080/notify',
+      order_id: '112234',
+      itemTitle: 'Demo Item',
+      recurrence: new Month(1),
+      duration: new Month(12),
+      currency: CurrencyType.LKR,
+      amount: 100
+    })
+          
+    const subscription = new PayhereSubscription(customer,subscriptionData,onPayhereSubscriptionError)
+    subscription.start()
+  } catch(err){
+    console.log(err)
+  }
 }
 ```
 
 #### Preapproval
 
 ```
-try {
-  const preappObj = {
+import {PayherePreapproval,PreapprovalParams, Customer, CurrencyType} from 'payhere-js-sdk'
+
+function preApprove() {
+  const customer = new Customer({
+    first_name: "Pavindu",
+    last_name: "Lakshan",
+    phone: "+94771234567",
+    email: "plumberhl@gmail.com",
+    address: "No. 50, Highlevel Road",
+    city: "Panadura",
+    country: "Sri Lanka",
+  })
+
+  const preappParams = new PreapprovalParams({
     returnUrl: 'http://localhost:3000/return',
     cancelUrl: 'http://localhost:3000/cancel',
     notifyUrl: 'https://dfc84fd10430.ngrok.io/preapprove-notify',
-    firstName: 'Demo',
-    lastName: 'Customer',
-    email: 'plumberhl@gmail.com',
-    phone: '+94771234567',
-    address: 'No. 50, Highlevel Road',
-    city: 'Panadura',
-    country: 'Sri Lanka',
-    order_id: '112233',
+    order_id: '112235',
     itemTitle: 'Demo Item',
     currency: CurrencyType.LKR
-  };
-
-  const preapp = new PayherePreapproval(preappObj,(err) => alert(err))
+  })
+  
+  const preapp = new PayherePreapproval(customer,preappParams,(err) => alert(err))
   preapp.start()
-}
-catch(err){
-  cosole.log(err)
 }
 ```
 
