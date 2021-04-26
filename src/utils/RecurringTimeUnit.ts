@@ -25,18 +25,21 @@ export abstract class RecurringTimeUnit {
     }
 }
 
+/* tslint:disable:max-classes-per-file */
 export class Week extends RecurringTimeUnit{
     constructor(nWeeks:number){
         super(nWeeks,TimeUnit.WEEK);
     }   
 }
 
+/* tslint:disable:max-classes-per-file */
 export class Month extends RecurringTimeUnit{
     constructor(nMonths:number){
         super(nMonths,TimeUnit.MONTH);
     }   
 }
 
+/* tslint:disable:max-classes-per-file */
 export class Year extends RecurringTimeUnit{
     constructor(nYears:number){
         super(nYears,TimeUnit.YEAR);
