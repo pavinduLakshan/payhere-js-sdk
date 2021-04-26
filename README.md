@@ -40,16 +40,6 @@ Payhere.init("12xxxxx",AccountCategory.SANDBOX)
 Payhere.init("12xxxxx",AccountCategory.LIVE)
 ```
 
-If you plan to use the Retrieval API, Charging API or Subscription Manager API,remember to initialize the Payhere object with an authorization code as follows. 
-
-```
-// Replace this sample value with your authorization code
-const authCode = "NE9WeDMzUlZPUGc0RHpkWlV6cTRBOTREMjo4bjRWQ2oyNU1YcDRKTERGeXZzRTloNGE4cWdiUGFaVUk0SkVXSzRGQ3ZvcA==" 
-Payhere.init("12xxxxx",AccountCategory.SANDBOX,authCode)
-```
-
-To understand how to generate the authorization code, please refer to [the official docs](https://support.payhere.lk/api-&-mobile-sdk/payhere-subscription#2-generate-an-authorization-code).
-
 ### Checkout
 
 ``` 
@@ -85,7 +75,7 @@ function checkout() {
 }
 ```
 
-#### Subscription
+### Subscription
 
 ```
 import {PayhereSubscription,SubscriptionParams, Customer, Month,CurrencyType} from 'payhere-js-sdk'
@@ -126,7 +116,7 @@ function initSubscription() {
 }
 ```
 
-#### Preapproval
+### Preapproval
 
 ```
 import {PayherePreapproval,PreapprovalParams, Customer, CurrencyType} from 'payhere-js-sdk'
@@ -156,7 +146,7 @@ function preApprove() {
 }
 ```
 
-#### Charge Pre approvals
+### Charge Pre approvals
 
 Coming soon
 
@@ -191,3 +181,28 @@ Coming soon
 #### Cancel a subscription
 
 Coming soon
+
+## Roadmap
+
+- Implement unit tests for each functionality using Jest
+
+- Implement automated charging functionality
+
+- Implement payment data retrieval functionality
+
+- Implement subscription data retrieval functionality
+
+- Implement retry subscription functionality
+
+- Implement cancel subscription functionality
+
+- Break down the repository into several NPM packages based on the environment
+  - `payhere-js-sdk/client` - checkout, subscription, preapproval
+  - `payhere-js-sdk/server` - automated charging, payment data retrieval, manage subscriptions, verify webhook responses
+
+- Create a authorized dashboard in server npm package to view payment information and manage subscriptions
+
+## Contributing
+
+This package is still in its early stages. All conributions are highly welcome.  
+Please read the [contributing guide](CONTRIBUTING.md) to get started.
