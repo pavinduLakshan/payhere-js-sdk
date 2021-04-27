@@ -1,3 +1,5 @@
+<center><img src="payhere_logo.png" height="200" width="450"></img></center>
+
 # payhere-js-sdk
 Full Fledged JavaScript SDK for payhere.lk 
 
