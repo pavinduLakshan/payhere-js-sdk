@@ -1,4 +1,4 @@
-import {Customer} from './utils/Customer'
+import { Customer } from './utils/Customer';
 
 export enum AccountCategory {
   LIVE,
@@ -15,33 +15,31 @@ export class Payhere {
     this._merchantId = merchantId;
     if (accountType === AccountCategory.LIVE) {
       this._baseUrl = 'https://www.payhere.lk';
-    }
-    else if (accountType === AccountCategory.SANDBOX) {
+    } else if (accountType === AccountCategory.SANDBOX) {
       this._baseUrl = 'https://sandbox.payhere.lk';
-    }
-    else throw new Error('Account type is reqquired, but has not been provided. Should be either LIVE or SANDBOX');
+    } else throw new Error('Account type is reqquired, but has not been provided. Should be either LIVE or SANDBOX');
     if (merchantSecret) {
       const authCode = this.genAuthCode(merchantSecret);
-      this._accessToken = this.genAccessToken(authCode)
+      this._accessToken = this.genAccessToken(authCode);
     }
-    if(customerInfo) {
-      this._customerInfo = customerInfo
+    if (customerInfo) {
+      this._customerInfo = customerInfo;
     }
   }
 
-  static get merchantId(){
+  static get merchantId() {
     return Payhere._merchantId;
   }
 
-  static get baseUrl(){
+  static get baseUrl() {
     return Payhere._baseUrl;
   }
 
-  static get accessToken(){
+  static get accessToken() {
     return Payhere._accessToken;
   }
 
-  static get customerInfo(){
+  static get customerInfo() {
     return Payhere._customerInfo;
   }
 

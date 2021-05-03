@@ -1,12 +1,12 @@
 import { Item } from './ItemType';
-import { BaseParamsType } from './BaseParamsType'
+import { BaseParamsType } from './BaseParamsType';
 import { RecurringTimeUnit } from '../utils/RecurringTimeUnit';
 
-export interface SubscriptionParamsType extends BaseParamsType{
+export interface SubscriptionParamsType extends BaseParamsType {
   // Recurring period
-  recurrence: RecurringTimeUnit,
+  recurrence: RecurringTimeUnit;
   // subscription duration
-  duration: RecurringTimeUnit,
+  duration: RecurringTimeUnit;
   // Total Payment Amount
   amount: number;
 

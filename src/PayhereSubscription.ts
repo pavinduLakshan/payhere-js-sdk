@@ -1,6 +1,6 @@
 import { Payhere } from './Payhere';
-import { SubscriptionParams } from './params/SubscriptionParams'
-import { submitPayhereClientRequest, Customer } from './utils'
+import { SubscriptionParams } from './params/SubscriptionParams';
+import { submitPayhereClientRequest, Customer } from './utils';
 
 const requiredSubscriptionParams: { [key: string]: string } = {
   return_url: 'returnUrl',
@@ -29,8 +29,8 @@ export class PayhereSubscription extends Payhere {
   constructor(customer: Customer, subscriptionParams: SubscriptionParams, onError: (errorMsg: string) => void) {
     super();
     try {
-      this._customerInfo = customer
-      this._subscriptionParams = subscriptionParams
+      this._customerInfo = customer;
+      this._subscriptionParams = subscriptionParams;
       this.onSubscriptionError = onError;
     } catch (err) {
       throw new Error(err);
@@ -38,15 +38,17 @@ export class PayhereSubscription extends Payhere {
   }
 
   async start() {
-
-
-
     try {
       const subscriptionReq = {
         ...this._customerInfo.toJSON(),
-        ...this._subscriptionParams.toJSON()
+        ...this._subscriptionParams.toJSON(),
       };
-      submitPayhereClientRequest(subscriptionReq, requiredSubscriptionParams, '/pay/checkout', this.onSubscriptionError)
+      submitPayhereClientRequest(
+        subscriptionReq,
+        requiredSubscriptionParams,
+        '/pay/checkout',
+        this.onSubscriptionError,
+      );
     } catch (err) {
       console.error(err);
       this.onSubscriptionError('Unknown error: ' + err);

@@ -13,15 +13,15 @@ export interface BaseParamsType {
   itemTitle: string;
   // Currency Code (LKR/USD)
   currency: CurrencyType;
-  
+
   /* Optional patameters*/
 
   // Referring Platform
-  platform: string,
+  platform: string;
   // Custom param 1 set by merchant
-  custom1: string,
-  // Custom param 2 set by merchant 
-  custom2: string,
+  custom1: string;
+  // Custom param 2 set by merchant
+  custom2: string;
   // Generated hash value to ensure extra security
   hash?: string;
 }
