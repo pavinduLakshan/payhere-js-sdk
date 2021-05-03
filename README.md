@@ -8,6 +8,8 @@ Full Fledged JavaScript SDK for payhere.lk
 Payhere is one of the most popular payment gateways in Sri Lanka, yet there is still no comfortable way to integrate Payhere with modern front end JS frameworks such as 
 React.js, Angular.js, and Vue.js. This NPM package can be used for a seamless Payhere integration with your single page web app.
 
+Have a look at [example code](/examples) or the [demo React.js app](https://pavindulakshan.github.io/payhere-js-sdk/).
+
 ## Features
 
 - Works in front end JS frameworks
