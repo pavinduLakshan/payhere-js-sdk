@@ -57,10 +57,10 @@ function onPayhereCheckoutError(errorMsg) {
   
 function checkout() {
   const customer = new Customer({
-    first_name: "Pavindu",
-    last_name: "Lakshan",
+    first_name: "Demo",
+    last_name: "User",
     phone: "+94771234567",
-    email: "plumberhl@gmail.com",
+    email: "user@example.com",
     address: "No. 50, Highlevel Road",
     city: "Panadura",
     country: "Sri Lanka",
@@ -93,10 +93,10 @@ function onPayhereSubscriptionError(errorMsg) {
 function initSubscription() {
   try {
     const customer = new Customer({
-      first_name: "Pavindu",
-      last_name: "Lakshan",
+      first_name: "Demo",
+      last_name: "User",
       phone: "+94771234567",
-      email: "plumberhl@gmail.com",
+      email: "user@example.com",
       address: "No. 50, Highlevel Road",
       city: "Panadura",
       country: "Sri Lanka",
@@ -129,10 +129,10 @@ import {PayherePreapproval,PreapprovalParams, Customer, CurrencyType} from 'payh
 
 function preApprove() {
   const customer = new Customer({
-    first_name: "Pavindu",
-    last_name: "Lakshan",
+    first_name: "Demo",
+    last_name: "User",
     phone: "+94771234567",
-    email: "plumberhl@gmail.com",
+    email: "user@example.com",
     address: "No. 50, Highlevel Road",
     city: "Panadura",
     country: "Sri Lanka",
