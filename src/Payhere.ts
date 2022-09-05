@@ -17,7 +17,7 @@ export class Payhere {
       this._baseUrl = 'https://www.payhere.lk';
     } else if (accountType === AccountCategory.SANDBOX) {
       this._baseUrl = 'https://sandbox.payhere.lk';
-    } else throw new Error('Account type is reqquired, but has not been provided. Should be either LIVE or SANDBOX');
+    } else throw new Error('Account type is required, but has not been provided. Should be either LIVE or SANDBOX');
     if (merchantSecret) {
       const authCode = this.genAuthCode(merchantSecret);
       this._accessToken = this.genAccessToken(authCode);
