@@ -3,12 +3,11 @@
 </p>
 
 # payhere-js-sdk
-Full Fledged JavaScript SDK for payhere.lk 
+Full Fledged JavaScript SDK for payhere.lk
 
-Payhere is one of the most popular payment gateways in Sri Lanka, yet there is still no comfortable way to integrate Payhere with modern front end JS frameworks such as 
-React.js, Angular.js, and Vue.js. This NPM package can be used for a seamless Payhere integration with your single page web app.
+Payhere, one of the most popular payment gateways in Sri Lanka, lacks a developer-friendly integration with modern front-end JS frameworks like React.js, Angular.js, and Vue.js etc. But worry not! We have developed an NPM package specifically designed to effortlessly integrate Payhere into your single-page web app, ensuring a seamless user experience.
 
-Have a look at [example code](/examples) or the [demo React.js app](https://pavindulakshan.github.io/payhere-js-sdk/).
+Have a look at [example code](/samples) or the [demo React.js app](https://pavindulakshan.github.io/payhere-js-sdk/).
 
 ## Features
 
@@ -22,12 +21,20 @@ Have a look at [example code](/examples) or the [demo React.js app](https://pavi
 ## Installation
 
 With NPM
-```
+
+```shell
 npm install payhere-js-sdk
 ```
 With Yarn
-```
+
+```shell
 yarn add payhere-js-sdk
+```
+
+With pnpm
+
+```shell
+pnpm i payhere-js-sdk
 ```
 
 ## How to use
@@ -36,7 +43,7 @@ yarn add payhere-js-sdk
 
 First initialize Payhere in the entry point of your Single Page App, by specifying the merchant ID and the account type as follows.
 
-```
+```js
 import {Payhere, AccountCategory} from "payhere-js-sdk"
 
 // Sandbox 
@@ -48,7 +55,7 @@ Payhere.init("12xxxxx",AccountCategory.LIVE)
 
 ### Checkout
 
-``` 
+```js
 import {Customer, CurrencyType, PayhereCheckout, CheckoutParams} from 'payhere-js-sdk'
 
 function onPayhereCheckoutError(errorMsg) {
@@ -83,7 +90,7 @@ function checkout() {
 
 ### Subscription
 
-```
+```js
 import {PayhereSubscription,SubscriptionParams, Customer, Month,CurrencyType} from 'payhere-js-sdk'
 
 function onPayhereSubscriptionError(errorMsg) {
@@ -124,7 +131,7 @@ function initSubscription() {
 
 ### Preapproval
 
-```
+```js
 import {PayherePreapproval,PreapprovalParams, Customer, CurrencyType} from 'payhere-js-sdk'
 
 function preApprove() {
