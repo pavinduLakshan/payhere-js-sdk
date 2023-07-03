@@ -22,9 +22,9 @@ const requiredCheckoutParams: { [key: string]: string } = {
 export class PayhereCheckout extends Payhere {
   private _checkoutParams: CheckoutParams;
   private _customerData: Customer;
-  private onCheckoutError: (errorMsg: string) => void = (errorMsg: string) => console.error;
+  private onCheckoutError: (errorMsg: unknown) => void = (errorMsg: unknown) => console.error;
 
-  constructor(customer: Customer, checkoutParams: CheckoutParams, onError?: (errorMsg: string) => void) {
+  constructor(customer: Customer, checkoutParams: CheckoutParams, onError?: (errorMsg: unknown) => void) {
     super();
     try {
       if (!customer) {
@@ -38,7 +38,7 @@ export class PayhereCheckout extends Payhere {
       if (onError) {
         this.onCheckoutError = onError;
       }
-    } catch (err) {
+    } catch (err: unknown) {
       this.onCheckoutError(err);
     }
   }

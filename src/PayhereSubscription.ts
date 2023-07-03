@@ -32,8 +32,8 @@ export class PayhereSubscription extends Payhere {
       this._customerInfo = customer;
       this._subscriptionParams = subscriptionParams;
       this.onSubscriptionError = onError;
-    } catch (err) {
-      throw new Error(err);
+    } catch (err: unknown) {
+      throw err;
     }
   }
 

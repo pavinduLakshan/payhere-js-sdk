@@ -24,7 +24,7 @@ export class SubscriptionParams {
       return_url: this._subscriptionParams.returnUrl,
       cancel_url: this._subscriptionParams.cancelUrl,
       notify_url: this._subscriptionParams.notifyUrl,
-      order_id: this._subscriptionParams,
+      order_id: this._subscriptionParams.order_id,
       items: this._subscriptionParams.itemTitle,
       currency: this._subscriptionParams.currency,
       amount: this._subscriptionParams.amount,
