@@ -1,5 +1,4 @@
 node_modules
 /lib
 *.tsbuildinfo
-payhere_preapp_creds.txt
 .ENV
