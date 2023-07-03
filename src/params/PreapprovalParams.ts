@@ -15,7 +15,7 @@ export class PreapprovalParams {
       return_url: this._preapprovalParams.returnUrl,
       cancel_url: this._preapprovalParams.cancelUrl,
       notify_url: this._preapprovalParams.notifyUrl,
-      order_id: this._preapprovalParams,
+      order_id: this._preapprovalParams.order_id,
       items: this._preapprovalParams.itemTitle,
       currency: this._preapprovalParams.currency,
       platform: this._preapprovalParams.platform,

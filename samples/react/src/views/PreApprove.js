@@ -17,9 +17,11 @@ const PreApprove = () => {
             returnUrl: 'http://localhost:3000/return',
             cancelUrl: 'http://localhost:3000/cancel',
             notifyUrl: 'https://dfc84fd10430.ngrok.io/preapprove-notify',
-            order_id: '112235',
+            order_id: '11223',
             itemTitle: 'Demo Item',
-            currency: CurrencyType.LKR
+            currency: CurrencyType.LKR,
+            amount: 10,
+            hash: "45B44C29E9405BF9ADC3B8397EEAFCB8"
           })
         const preapp = new PayherePreapproval(customer,preappParams,(err) => alert(err))
         preapp.start()
