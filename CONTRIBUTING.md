@@ -10,7 +10,7 @@
 
 - Create a new branch off the `master` branch.
 
-- Install dependencies using `npm install`, `yarn` or `pnpm`.
+- Install dependencies using `npm install`, `yarn` or `pnpm install`.
 
 - Run `npm run build` to compile the TypeScript code.
 
