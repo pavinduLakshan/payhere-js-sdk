@@ -1,6 +1,6 @@
 {
   "name": "payhere-js-sdk",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Full Fledged Payhere.lk JavaScript SDKs for Browser and Node.js",
   "scripts": {
     "build": "npx nx run-many -t build"
