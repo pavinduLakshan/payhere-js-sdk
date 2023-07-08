@@ -1,5 +1,5 @@
 import React from 'react';
-import {PayhereSubscription,SubscriptionParams, Customer, Month,CurrencyType} from 'payhere-js-sdk'
+import {PayhereSubscription,SubscriptionParams, Customer, Month,CurrencyType} from '@payhere-js-sdk/client'
 
 const Subscription = () => {
     function initSubscription() {
