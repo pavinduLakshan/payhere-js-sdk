@@ -1,5 +1,5 @@
 import React from 'react';
-import { Customer, CurrencyType, PayhereCheckout, CheckoutParams } from 'payhere-js-sdk';
+import { Customer, CurrencyType, PayhereCheckout, CheckoutParams } from '@payhere-js-sdk/client';
 
 const customerAttributes = {
   first_name: 'John',

@@ -1,5 +1,5 @@
 import React from 'react';
-import {PayherePreapproval,PreapprovalParams, Customer, CurrencyType} from 'payhere-js-sdk'
+import {PayherePreapproval,PreapprovalParams, Customer, CurrencyType} from '@payhere-js-sdk/client'
 
 const PreApprove = () => {
     function preApprove() {

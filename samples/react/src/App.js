@@ -1,6 +1,6 @@
 import React from 'react';
 import Routes from './Routes';
-import { Payhere, AccountCategory } from 'payhere-js-sdk';
+import { Payhere, AccountCategory } from '@payhere-js-sdk/client';
 
 Payhere.init(process.env.REACT_APP_PAYHERE_MERCHANT_ID, AccountCategory.SANDBOX);
 

@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="600" height="200" width="400" src="payhere_logo.png">
+  <img width="600" height="200" width="400" src="https://payherestorage.blob.core.windows.net/payhere-resources/www/images/PayHere-Logo.png">
 </p>
 
 # payhere-js-sdk
