@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "Full Fledged Payhere.lk JavaScript SDKs for Browser and Node.js",
   "scripts": {
-"build": "npx nx run-many -t build"
+    "build": "npx nx run-many -t build"
   },
   "repository": {
     "type": "git",
